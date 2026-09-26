@@ -6,17 +6,15 @@ GitHub Repo for CUDA Course on FreeCodeCamp
 
 ## Table of Contents
 
-1. [The Deep Learning Ecosystem](01_Deep_Learning_Ecosystem/README.md)
-2. [Setup/Installation](02_Setup/README.md)
-3. [C/C++ Review](03_C_and_C++_Review/README.md)
-4. [Gentle Intro to GPUs](04_Gentle_Intro_to_GPUs/README.md)
-5. [Writing Your First Kernels](05_Writing_your_First_Kernels/README.md)
-6. [CUDA APIs (cuBLAS, cuDNN, etc)](06_CUDA_APIs/README.md)
-7. [Optimizing Matrix Multiplication](07_Faster_Matmul/README.md)
-8. [Triton](08_Triton/README.md)
-9. [PyTorch Extensions (CUDA)](08_PyTorch_Extensions/README.md)
-10. [Final Project](09_Final_Project/README.md)
-11. [Extras](10_Extras/README.md)
+> Trimmed and reordered for interview prep — study top to bottom.
+
+1. [Setup/Installation](01_Setup/README.md)
+2. [C/C++ Review](02_C_and_C++_Review/README.md)
+3. [Gentle Intro to GPUs](03_Gentle_Intro_to_GPUs/README.md)
+4. [Writing Your First Kernels](04_Writing_your_First_Kernels/README.md)
+5. [Optimizing Matrix Multiplication](05_Faster_Matmul/README.md)
+6. [CUDA APIs (cuBLAS, cuDNN)](06_CUDA_APIs/README.md)
+7. [Final Project](07_Final_Project/README.md)
 
 ## Course Philosophy
 
@@ -68,7 +66,7 @@ This course aims to:
 - NVIDIA Developer Forums
 - NVIDIA and PyTorch documentation
 - LLMs for navigating the space
-- Cheatsheet [here](/11_Extras/assets/cheatsheet.md)
+
 ## Other Learning Material
 
 - https://github.com/CoffeeBeforeArch/cuda_programming
