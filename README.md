@@ -1,99 +1,58 @@
-# CUDA Course
+## Roadmap (Interview-Focused Study Order)
 
-GitHub Repo for CUDA Course on FreeCodeCamp
+> Trimmed to what actually matters for a CUDA/GPU role. Follow top to bottom.
 
-> Note: This course is designed for Ubuntu Linux. Windows users can use Windows Subsystem for Linux or Docker containers to simulate the ubuntu Linux environment.
+### Phase 1 — Setup
+`01_Setup/`
+- Install CUDA Toolkit, confirm `nvidia-smi` and `nvcc --version` agree on version.
+- **Goal:** working, correctly-versioned environment. Nothing else works without this.
 
-## Table of Contents
+### Phase 2 — C/C++ Refresher
+`02_C_and_C++_Review/`
+- Focus: `01 Pointers`, `02 Custom Types`, `03 Type Casting`.
+- Skim: `04 Makefiles` (just enough to compile multi-file projects).
+- **Goal:** pointer arithmetic and struct/cast reasoning fluent, not just readable. Most beginner "CUDA bugs" are pointer bugs in disguise.
 
-> Trimmed and reordered for interview prep — study top to bottom.
+### Phase 3 — Why GPUs
+`03_Gentle_Intro_to_GPUs/`
+- CPU vs GPU vs TPU: latency-optimized vs throughput-optimized hardware.
+- Host/device terminology, why massively parallel hardware fits deep learning.
+- **Goal:** explain the CPU-vs-GPU tradeoff out loud, unscripted. This is the standard interview opener.
 
-1. [Setup/Installation](01_Setup/README.md)
-2. [C/C++ Review](02_C_and_C++_Review/README.md)
-3. [Gentle Intro to GPUs](03_Gentle_Intro_to_GPUs/README.md)
-4. [Writing Your First Kernels](04_Writing_your_First_Kernels/README.md)
-5. [Optimizing Matrix Multiplication](05_Faster_Matmul/README.md)
-6. [CUDA APIs (cuBLAS, cuDNN)](06_CUDA_APIs/README.md)
-7. [Final Project](07_Final_Project/README.md)
+### Phase 4 — First Kernels (core phase #1)
+`04_Writing_your_First_Kernels/`
+1. **CUDA Basics** — thread/block/grid indexing math (1D/2D/3D). Derive the global-index formula from memory.
+2. **Kernels** — vector addition, naive matrix multiplication. Write both cold, verify against a CPU reference.
+3. **Profiling** — `nsys` for system-level bottlenecks, `ncu` for per-kernel occupancy/memory throughput. Profile everything from here on.
+4. **Atomics** — `atomicAdd`-based histogram or reduction; understand race conditions and contention cost.
+5. **Streams** — pinned memory, `cudaMemcpyAsync`, events, overlapping compute with data transfer.
+- **Goal:** comfortable writing, launching, profiling, and debugging a kernel end to end.
 
-## Course Philosophy
+### Phase 5 — Matmul Optimization (core phase #2, highest priority)
+`05_Faster_Matmul/`
+- Progression: naive → coalesced access → shared-memory tiling → 1D/2D block-tiling → vectorized (128-bit) loads → autotuning.
+- Implement every stage yourself, keep a GFLOPS table, know *why* each step helped.
+- **Goal:** this is the closest thing to a standard NVIDIA-style take-home. Budget the most time here.
 
-This course aims to:
+### Phase 6 — CUDA Libraries
+`06_CUDA_APIs/`
+- **cuBLAS** — call `cublasSgemm`, benchmark against your own Phase 5 kernel.
+- **cuDNN** — run the Tanh/Conv2d examples once, understand the opaque-handle API pattern.
+- **Goal:** know when to reach for a library vs. hand-roll a kernel.
 
-- Lower the barrier to entry for HPC jobs
-- Provide a foundation for understanding projects like Karpathy's [llm.c](https://github.com/karpathy/llm.c)
-- Consolidate scattered CUDA programming resources into a comprehensive, organized course
+### Phase 7 — Final Project
+`07_Final_Project/`
+- Build the MLP MNIST trainer in raw CUDA: forward pass → verify vs NumPy/PyTorch → backward pass → training loop.
+- **Goal:** one complete, correct, benchmarked, framework-free neural net — your proof-of-work for interviews.
 
-## Overview
+---
 
-- Focus on GPU kernel optimization for performance improvement
-- Cover CUDA, PyTorch, and Triton
-- Emphasis on technical details of writing faster kernels
-- Tailored for NVIDIA GPUs
-- Culminates in a simple MLP MNIST project in CUDA
+### Time Allocation
 
-## Prerequisites
-
-- Python programming (required)
-- Basic differentiation and vector calculus for backprop (recommended)
-- Linear algebra fundamentals (recommended)
-
-## Key Takeaways
-
-- Optimizing existing implementations
-- Building CUDA kernels for cutting-edge research
-- Understanding GPU performance bottlenecks, especially memory bandwidth
-
-## Hardware Requirements
-
-- Any NVIDIA GTX, RTX, or datacenter level GPU
-- Cloud GPU options available for those without local hardware
-
-## Use Cases for CUDA/GPU Programming
-
-- Deep Learning (primary focus of this course)
-- Graphics and Ray-tracing
-- Fluid Simulation
-- Video Editing
-- Crypto Mining
-- 3D modeling
-- Anything that requires parallel processing with large arrays
-
-## Resources
-
-- GitHub repo (this repository)
-- Stack Overflow
-- NVIDIA Developer Forums
-- NVIDIA and PyTorch documentation
-- LLMs for navigating the space
-
-## Other Learning Material
-
-- https://github.com/CoffeeBeforeArch/cuda_programming
-- https://www.youtube.com/@GPUMODE
-- https://discord.com/invite/gpumode
-
-## Fun YouTube Videos:
-- [How do GPUs works? Exploring GPU Architecture](https://www.youtube.com/watch?v=h9Z4oGN89MU)
-- [But how do GPUs actually work?](https://www.youtube.com/watch?v=58jtf24uijw&ab_channel=Graphicode)
-- [Getting Started With CUDA for Python Programmers](https://www.youtube.com/watch?v=nOxKexn3iBo&ab_channel=JeremyHoward)
-- [Transformers Explained From The Atom Up](https://www.youtube.com/watch?v=7lJZHbg0EQ4&ab_channel=JacobRintamaki)
-- [How CUDA Programming Works - Stephen Jones, CUDA Architect, NVIDIA](https://www.youtube.com/watch?v=QQceTDjA4f4&ab_channel=ChristopherHollinworth)
-- [Parallel Computing with Nvidia CUDA - NeuralNine](https://www.youtube.com/watch?v=zSCdTOKrnII&ab_channel=NeuralNine)
-- [CPU vs GPU vs TPU vs DPU vs QPU](https://www.youtube.com/watch?v=r5NQecwZs1A&ab_channel=Fireship)
-- [Nvidia CUDA in 100 Seconds](https://www.youtube.com/watch?v=pPStdjuYzSI&ab_channel=Fireship)
-- [How AI Discovered a Faster Matrix Multiplication Algorithm](https://www.youtube.com/watch?v=fDAPJ7rvcUw&t=1s&ab_channel=QuantaMagazine)
-- [The fastest matrix multiplication algorithm](https://www.youtube.com/watch?v=sZxjuT1kUd0&ab_channel=Dr.TreforBazett)
-- [From Scratch: Cache Tiled Matrix Multiplication in CUDA](https://www.youtube.com/watch?v=ga2ML1uGr5o&ab_channel=CoffeeBeforeArch)
-- [From Scratch: Matrix Multiplication in CUDA](https://www.youtube.com/watch?v=DpEgZe2bbU0&ab_channel=CoffeeBeforeArch)
-- [Intro to GPU Programming](https://www.youtube.com/watch?v=G-EimI4q-TQ&ab_channel=TomNurkkala)
-- [CUDA Programming](https://www.youtube.com/watch?v=xwbD6fL5qC8&ab_channel=TomNurkkala)
-- [Intro to CUDA (part 1): High Level Concepts](https://www.youtube.com/watch?v=4APkMJdiudU&ab_channel=JoshHolloway)
-- [Intro to GPU Hardware](https://www.youtube.com/watch?v=kUqkOAU84bA&ab_channel=TomNurkkala)
-
-## Find me
-
-- [Twitter/X](https://x.com/elliotarledge)
-- [LinkedIn](https://www.linkedin.com/in/elliot-arledge-a392b7243/)
-- [YouTube](https://www.youtube.com/channel/UCjlt_l6MIdxi4KoxuMjhYxg)
-- [Discord](https://discord.gg/JTTcFe7Pw2)
+| Phase | Weight |
+|---|---|
+| Matmul Optimization (05) | 40% |
+| First Kernels (04) | 35% |
+| Setup + C/C++ + GPU Intro (01–03) | 10% |
+| CUDA Libraries (06) | 10% |
+| Final Project (07) | 5% |
