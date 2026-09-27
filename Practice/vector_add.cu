@@ -26,12 +26,11 @@ int main(){
     
 
     // cudaMemcpy(destination, source, size, direction);
-    
         // h_a: CPU/RAM mein input array
         // dev_a: GPU memory mein allocated array
         // bytes: kitna data copy karna hai
         // cudaMemcpyHostToDevice: CPU se GPU direction
-
+        
     cudaMemcpy(dev_a, h_a, bytes, cudaMemcpyHostToDevice);
     cudaMemcpy(dev_b, h_b, bytes, cudaMemcpyHostToDevice);
 
